@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class examination_iiitb extends examination {
@@ -12,7 +14,7 @@ public class examination_iiitb extends examination {
         edata = new eval_data(this.exam_id);
     }
 
-    public boolean get_list_tests() {
+    public ArrayList<ArrayList<String>> get_list_tests() {
         ResultSet rs=null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -22,36 +24,39 @@ public class examination_iiitb extends examination {
             rs = stmt.executeQuery("SELECT * FROM tests");
         } catch (Exception err){
             System.out.println("Error while connecting with SQL server to get the list of tests "+err);
-            return false;
         }
 
         System.out.println("  id    course      date     status");
-
+        ArrayList<ArrayList<String>>L=new ArrayList<ArrayList<String>>();
         try{
             if(rs!=null){
                 while (rs.next()) {
+
+                    ArrayList<String> s= new ArrayList<String>();
                     int id = rs.getInt("id");
                     String course = rs.getString("course");
                     String date = rs.getString("date");
                     String status=rs.getString("status");
-
+                    s.add(String.valueOf(id));
+                    s.add(course);
+                    s.add(date);
+                    s.add(status);
+                    L.add(s);
                     String to_print = String.format("%4d  %8s  %8s   %8s", id, course, date, status);
                     System.out.println(to_print);
                 }
             } else {
                 System.out.println("No active tests to display");
-                return false;
             }
         } catch (Exception err){
             System.out.println("Error while getting list of tests "+err);
-            return false;
         }
 
-
-        Scanner sc_exam = new Scanner(System.in);
-        System.out.println("Enter the test ID: ");
-        this.test_id = sc_exam.nextInt();
-        return true;
+        return L;
+//        Scanner sc_exam = new Scanner(System.in);
+//        System.out.println("Enter the test ID: ");
+//        this.test_id = sc_exam.nextInt();
+//        return true;
     }
 
     public boolean get_questions() {
