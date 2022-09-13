@@ -1,11 +1,15 @@
 package com.example.oaes_servlet.Entity.student;
 
+import com.example.oaes_servlet.dao.StudentDao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class student_iiitb extends student{
+
+    StudentDao studentDao;
 //    student_iiitb(String name, String email, String uname, String passwd, String phone, String roll_number){
 //        this.name = name;
 //        this.email = email;
@@ -17,22 +21,8 @@ public class student_iiitb extends student{
 //    }
 
     public String generate_id(){
+        return studentDao.create_generate_id(this);
 
-
-        String query = "insert into Student (exam_id, roll_number, name, email, username, password, phone) values ('"+this.exam_id+"','"+this.roll_number+"','"+this.name+"','"+this.email+"','"+this.uname+"','"+this.passwd+"','"+this.phone+"')";
-        System.out.println(query);
-
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/oaes_lite?createDatabaseIfNotExist=true","root","password");
-            Statement stmt=con.createStatement();
-            int rs=stmt.executeUpdate(query);
-        } catch (Exception e){
-            System.out.println("Error while connecting with SQL server "+e);
-            return "";
-        }
-
-        return this.exam_id;
     }
 
     public boolean validate(String email, String phone, String pass, boolean e)
