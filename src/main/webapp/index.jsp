@@ -12,7 +12,6 @@
 <a href="demolink">Hello Servlet</a>
 <a href="register.jsp">Register Student</a>
 <a href="login.jsp">Student Login</a>
-
 <a href="conduct-exam"> Examination</a>
 
 <%--<a href="/conduct-exam">Examination</a>--%>

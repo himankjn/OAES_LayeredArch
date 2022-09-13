@@ -13,7 +13,7 @@ abstract public class examination {
 
 //    abstract boolean get_list_tests();
     abstract ArrayList<ArrayList<String>> get_list_tests();
-    abstract boolean get_questions();
+    abstract ArrayList<ArrayList<String>> get_questions();
     abstract void submit_for_eval();
 
     //template method
@@ -27,5 +27,25 @@ abstract public class examination {
         return;
 //        if(!get_questions()) return false;
 //        submit_for_eval();
+    }
+
+    public void taketest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String testid= (String) request.getParameter("testid");
+        this.test_id=Integer.parseInt(testid);
+        HttpSession session=request.getSession(true);
+        ArrayList<ArrayList<String>>questions=get_questions();
+        System.out.println("Entering test"+testid);
+        for(ArrayList<String>q:questions){
+            for(String s:q){
+                System.out.print(s+" ");
+            }
+            System.out.println();
+        }
+        session.setAttribute("questions",questions);
+        System.out.println(questions);
+        session.setMaxInactiveInterval(1000);
+        response.sendRedirect("test.jsp");
+        return;
     }
 }

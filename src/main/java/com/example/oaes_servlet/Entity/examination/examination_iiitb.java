@@ -59,7 +59,7 @@ public class examination_iiitb extends examination {
 //        return true;
     }
 
-    public boolean get_questions() {
+    public ArrayList<ArrayList<String>> get_questions() {
         ResultSet rs = null;
 
         try {
@@ -69,14 +69,17 @@ public class examination_iiitb extends examination {
             rs = stmt.executeQuery("SELECT * FROM question_bank where test_id=" + this.test_id);
         } catch (Exception e){
             System.out.println("Error while connecting with SQL server to get the list of questions "+e);
-            return false;
+            return null;
         }
 
         Scanner sc_exam = new Scanner(System.in);
 
         System.out.println("\n####### Welcome to Online Assessment #######");
+
+        ArrayList<ArrayList<String>>Q=new ArrayList<ArrayList<String>>();
         try{
             while (rs.next()) {
+                ArrayList<String>s=new ArrayList<String>();
                 int id = rs.getInt("id");
                 String question = rs.getString("statement");
                 String marks = rs.getString("marks");
@@ -85,21 +88,29 @@ public class examination_iiitb extends examination {
                 String c=rs.getString("option C");
                 String d=rs.getString("option D");
 
-                System.out.println("\n"+id+"> "+question+" (marks: "+marks+")");
-                System.out.println("a) "+a+"   b)"+b+"   c)"+c+"   d)"+d);
-                System.out.println("\nEnter your option: ");
+                s.add(question);
+                s.add(marks);
+                s.add(a);
+                s.add(b);
+                s.add(c);
+                s.add(d);
+                Q.add(s);
 
-                String ans = sc_exam.nextLine();
-
-                answer adata = new answer(this.test_id, id, ans);
-                edata.answers.add(adata);
+//                System.out.println("\n"+id+"> "+question+" (marks: "+marks+")");
+//                System.out.println("a) "+a+"   b)"+b+"   c)"+c+"   d)"+d);
+//                System.out.println("\nEnter your option: ");
+//
+//                String ans = sc_exam.nextLine();
+//
+//                answer adata = new answer(this.test_id, id, ans);
+//                edata.answers.add(adata);
             }
         } catch (Exception err){
             System.out.println("Error while getting questions "+err);
-            return false;
+            return null;
         }
 
-        return true;
+        return Q;
     }
 
     public void submit_for_eval() {

@@ -51,6 +51,7 @@
             <th>Date</th>
             <th>Status</th>
         </tr>
+
         <c:forEach items="${tests}" var="item">
             <tr>
                 <td><c:out value="${item[0]}" /></td>
@@ -59,8 +60,14 @@
                 <td><c:out value="${item[3]}" /></td>
             </tr>
         </c:forEach>
-
     </table>
+
+    <form action="take-test" method="get">
+        <label for="testid">Select the test you wish to take: </label>
+        <input type="text" id="testid" name="testid">
+        <input type="submit" value="Submit">
+    </form>
+
 
 </body>
 </html>
