@@ -71,9 +71,7 @@ public class RegisterStudent extends HttpServlet {
             return;
         }
 
-        System.out.println("reached here atleast!");
         String exam_id = std.generate_id();
-        System.out.println("reached here as well");
 
         if(exam_id.equals("")) {
             msg="Error while generating exam ID";
