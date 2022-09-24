@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 abstract public class examination {
-    int test_id=0;
+    public int test_id=0;
     String exam_id="";
     eval_data edata=null;
 

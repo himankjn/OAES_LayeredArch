@@ -4,12 +4,12 @@
   Date: 13/09/22
   Time: 1:32 PM
   To change this template use File | Settings | File Templates.
---%>s
+--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Test </title>
+    <title>Test</title>
 </head>
 <body>
 
@@ -53,6 +53,10 @@
             </tr>
         </c:forEach>
     </table>
+
+<%--    <form action="index.jsp" method="get">--%>
+<%--        <input type="submit" value= "Logout">--%>
+<%--    </form>--%>
 
 <%--    <form action="take-test" method="get">--%>
 <%--        <label for="testid">Select the test you wish to take: </label>--%>
